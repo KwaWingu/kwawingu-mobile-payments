@@ -32,17 +32,15 @@ public class QueryTransactionStatus {
 
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
-        headers.put("Origin", "*");
         encryptedSessionKey.insertAuthorizationHeader(headers);
+        headers.put("Origin", "*");
 
         URI uri = apiEndpoint.getUrl(Service.QUERY_TRANSACTION);
         HttpResponse<String> response = null;
+        LOG.debug(String.valueOf(uri));
 
         try {
-            response = mpesaHttpClientClient.QueryTransactionStatus(headers,
-                    HttpRequest.BodyPublishers.ofString(""),
-                    uri
-                    );
+            response = mpesaHttpClientClient.queryTransactionStatusRequest(headers, uri);
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
