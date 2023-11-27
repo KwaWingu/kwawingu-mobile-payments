@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
@@ -28,6 +29,29 @@ public class QueryTransactionStatus {
         this.mpesaHttpClientClient = new MpesaHttpClient();
     }
 
+    private URI params(String inputQueryReference, String inputCountry, String inputServiceProviderCode, String inputThirdPartyConversationID) {
+        URI uri = apiEndpoint.getUrl(Service.QUERY_TRANSACTION);
+        LOG.debug("Init URL: {}", String.valueOf(uri));
+        URI urlWithParams = null;
+        try {
+            urlWithParams = new URI(uri.toString());
+            urlWithParams = new URI(
+                    uri.getScheme(),
+                    uri.getAuthority(),
+                    uri.getPath(),
+                    "queryReference=" + inputQueryReference +
+                            "&country=" + inputCountry +
+                            "&serviceProviderCode=" + inputServiceProviderCode +
+                            "&thirdPartyConversationID=" + inputThirdPartyConversationID,
+                    uri.getFragment()
+            );
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        LOG.debug("New URI with param: {}", urlWithParams);
+        return urlWithParams;
+    }
+
     public String queryTransaction() {
 
         Map<String, String> headers = new HashMap<>();
@@ -35,7 +59,8 @@ public class QueryTransactionStatus {
         encryptedSessionKey.insertAuthorizationHeader(headers);
         headers.put("Origin", "*");
 
-        URI uri = apiEndpoint.getUrl(Service.QUERY_TRANSACTION);
+        URI uri = params("5C1400CVRO", "GHA", "ORG001", "1e9b774d1da34af78412a498cbc28f5e");
+
         HttpResponse<String> response = null;
         LOG.debug(String.valueOf(uri));
 
