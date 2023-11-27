@@ -3,9 +3,15 @@
  */
 package com.kwawingu.payments.client.payload;
 
+import com.kwawingu.payments.c2b.CustomerToBusinessTransaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Objects;
 
 public class Payload {
+  private static final Logger LOG = LoggerFactory.getLogger(Payload.class);
+
   private final String amount;
   private final String customerMSISDN;
   private final String country;
