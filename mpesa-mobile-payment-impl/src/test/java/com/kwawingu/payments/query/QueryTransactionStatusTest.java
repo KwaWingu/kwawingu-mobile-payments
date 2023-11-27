@@ -36,7 +36,16 @@ public class QueryTransactionStatusTest {
                         .build();
         MpesaSession mpesaSession = new MpesaSession(new MpesaKeyProviderFromEnvironment(config), Environment.SANDBOX, Market.VODACOM_TANZANIA);
         ApiEndpoint endpoint = new ApiEndpoint(Environment.SANDBOX, Market.VODACOM_TANZANIA);
-        QueryTransactionStatus query = new QueryTransactionStatus(endpoint, mpesaSession.getEncryptedSessionKey());
+
+        QueryTransactionStatus query =
+                new QueryTransactionStatus.Builder()
+                        .setApiEndpoint(endpoint)
+                        .setEncryptedSessionKey(mpesaSession.getEncryptedSessionKey())
+                        .setInputCountry("GHA")
+                        .setInputServiceProviderCode("ORG001")
+                        .setInputQueryReference("1e9b774d1da34af78412a498cbc28ASC")
+                        .setInputThirdPartyConversationID("1e9b774d1da34af78412a498cbc28f5e")
+                        .build();
 
         String response = query.queryTransaction();
         LOG.info(response);
