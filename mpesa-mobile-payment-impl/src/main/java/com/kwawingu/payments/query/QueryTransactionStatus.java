@@ -39,6 +39,7 @@ public class QueryTransactionStatus {
     this.inputThirdPartyConversationID = builder.inputThirdPartyConversationID;
   }
 
+  @SuppressWarnings("initialization.field.uninitialized")
   public static class Builder {
     private ApiEndpoint apiEndpoint;
     private MpesaEncryptedSessionKey encryptedSessionKey;
