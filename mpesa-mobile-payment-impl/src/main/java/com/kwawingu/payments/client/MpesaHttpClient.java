@@ -58,7 +58,8 @@ public class MpesaHttpClient {
         response.statusCode(), stringToJson(response.body()));
   }
 
-  public HttpResponse<String> queryTransactionStatusRequest(Map<String, String> headers, URI uri) throws IOException, InterruptedException {
+  public HttpResponse<String> queryTransactionStatusRequest(Map<String, String> headers, URI uri)
+      throws IOException, InterruptedException {
     HttpRequest.Builder requestBuilder = HttpRequest.newBuilder().uri(uri).GET();
     headers.forEach(requestBuilder::headers);
     HttpRequest request = requestBuilder.build();
