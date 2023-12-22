@@ -4,8 +4,13 @@
 package com.kwawingu.payments.client.payload;
 
 import java.util.Objects;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Payload {
+  @SuppressWarnings("UnusedVariable")
+  private static final Logger LOG = LoggerFactory.getLogger(Payload.class);
+
   private final String amount;
   private final String customerMSISDN;
   private final String country;

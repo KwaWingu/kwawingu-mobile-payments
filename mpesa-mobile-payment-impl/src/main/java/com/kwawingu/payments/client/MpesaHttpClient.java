@@ -57,4 +57,12 @@ public class MpesaHttpClient {
     return new CustomerToBusinessTransactionResponse.SynchronousResponses(
         response.statusCode(), stringToJson(response.body()));
   }
+
+  public HttpResponse<String> queryTransactionStatusRequest(Map<String, String> headers, URI uri)
+      throws IOException, InterruptedException {
+    HttpRequest.Builder requestBuilder = HttpRequest.newBuilder().uri(uri).GET();
+    headers.forEach(requestBuilder::headers);
+    HttpRequest request = requestBuilder.build();
+    return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+  }
 }

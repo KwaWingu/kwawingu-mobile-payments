@@ -78,6 +78,7 @@ public class MpesaKeyProviderFromEnvironment implements MpesaKeyProvider {
       throw new IllegalStateException(
           "You did not provide the API Key in " + config.getPublicKeyEnvName());
     }
+    LOG.info("This is the Public Key: {}", publicKey);
     return new MpesaPublicKey(publicKey);
   }
 }
