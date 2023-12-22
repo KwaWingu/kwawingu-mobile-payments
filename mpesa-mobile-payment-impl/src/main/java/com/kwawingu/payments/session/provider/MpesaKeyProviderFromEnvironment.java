@@ -74,11 +74,11 @@ public class MpesaKeyProviderFromEnvironment implements MpesaKeyProvider {
   @Override
   public MpesaPublicKey getPublicKey() {
     String publicKey = System.getenv(config.getPublicKeyEnvName());
-    LOG.info("This is the Public Key: {}", publicKey);
     if (publicKey == null || publicKey.trim().isEmpty()) {
       throw new IllegalStateException(
           "You did not provide the API Key in " + config.getPublicKeyEnvName());
     }
+    LOG.info("This is the Public Key: {}", publicKey);
     return new MpesaPublicKey(publicKey);
   }
 }
